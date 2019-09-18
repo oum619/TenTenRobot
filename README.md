@@ -46,4 +46,4 @@ Expected output:
 ```
 
 ## Error handling:
-An error is outputted to the user if any of the simulator instructions cannot be executed. 
+The program stops and an error is outputted to the user if any of the instructions cannot be executed. 

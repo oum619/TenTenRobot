@@ -14,8 +14,6 @@ class MainController: UIViewController {
   let MAIN_BEGIN = 0
   
   @IBOutlet weak var outputView: UITextView!
-  
-  let computer  = Computer(capacity: 100)
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -26,6 +24,7 @@ class MainController: UIViewController {
 
 
   @IBAction func execute(_ sender: Any) {
+    let computer = Computer(capacity: 100)
     do{
       if computer.set_address(addr: PRINT_TENTEN_BEGIN){
         try computer.insert(.multi)
