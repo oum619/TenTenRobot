@@ -10,25 +10,124 @@ import XCTest
 @testable import TenTenRobot
 
 class TenTenRobotTests: XCTestCase {
-
-    override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+  
+  let CAPACITY = 10
+  let computer = Computer(capacity: 10)
+  
+  override func setUp() {
+    // Put setup code here. This method is called before the invocation of each test method in the class.
+  }
+  
+  override func tearDown() {
+    // Put teardown code here. This method is called after the invocation of each test method in the class.
+  }
+  
+  func testErrorMulti() {
+    computer.insert(.multi)
+    if computer.set_address(addr: 0){
+      let output = computer.execute()
+      XCTAssertEqual(output.first, "Insufficient arguments to execute MULTI")
     }
-
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+  }
+  func testMulti() {
+    computer.insert(.push(CAPACITY/5))
+    computer.insert(.push(CAPACITY/5))
+    computer.insert(.multi)
+    computer.insert(.print)
+    if computer.set_address(addr: 0){
+      let output = computer.execute()
+      XCTAssertEqual(output.first, "# \(CAPACITY/5*2)")
+      XCTAssertEqual(computer.arguments.count, 0)
+      XCTAssertEqual(computer.programs.count, CAPACITY)
     }
-
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+  }
+  func testCallUpperOutOfBound() {
+    computer.insert(.call(computer.programs.count))
+    if computer.set_address(addr: 0){
+      let output = computer.execute()
+      XCTAssertEqual(output.first, "\(computer.programs.count) is out of bounds")
     }
-
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+  }
+  func testCallLowerOutOfBound() {
+    computer.insert(.call(-1))
+    if computer.set_address(addr: 0){
+      let output = computer.execute()
+      XCTAssertEqual(output.first, "-1 is out of bounds")
     }
-
+  }
+  func testCall() {
+    if computer.set_address(addr: CAPACITY/2){
+      computer.insert(.push(CAPACITY/5))
+      computer.insert(.print)
+    }
+    if computer.set_address(addr: 0){
+      computer.insert(.call(CAPACITY/2))
+    }
+    if computer.set_address(addr: 0){
+      let output = computer.execute()
+      XCTAssertEqual(output.first, "# \(CAPACITY/5)")
+      XCTAssertEqual(computer.arguments.count, 0)
+      XCTAssertEqual(computer.programs.count, CAPACITY)
+    }
+  }
+  func testRetError() {
+    computer.insert(.ret)
+    if computer.set_address(addr: 0){
+      let output = computer.execute()
+      XCTAssertEqual(output.first, "Insufficient arguments to execute RET")
+    }
+  }
+  func testRet() {
+    if computer.set_address(addr: CAPACITY/2){
+      computer.insert(.push(CAPACITY/5))
+      computer.insert(.print)
+    }
+    if computer.set_address(addr: 0){
+      computer.insert(.push(CAPACITY/2))
+      computer.insert(.ret)
+    }
+    if computer.set_address(addr: 0){
+      let output = computer.execute()
+      XCTAssertEqual(output.first, "# \(CAPACITY/5)")
+      XCTAssertEqual(computer.arguments.count, 0)
+      XCTAssertEqual(computer.programs.count, CAPACITY)
+    }
+  }
+  func testStop(){
+    computer.insert(.stop)
+    if computer.set_address(addr: 0){
+      let output = computer.execute()
+      XCTAssertEqual(output.first, nil)
+      XCTAssertEqual(computer.arguments.count, 0)
+      XCTAssertEqual(computer.programs.count, CAPACITY)
+    }
+  }
+  func testPrint(){
+    computer.insert(.push(CAPACITY))
+    computer.insert(.print)
+    if computer.set_address(addr: 0){
+      let output = computer.execute()
+      XCTAssertEqual(output.first, "# \(CAPACITY)")
+      XCTAssertEqual(computer.arguments.count, 0)
+      XCTAssertEqual(computer.programs.count, CAPACITY)
+    }
+  }
+  func testPrintError(){
+    computer.insert(.print)
+    if computer.set_address(addr: 0){
+      let output = computer.execute()
+      XCTAssertEqual(output.first,"Insufficient arguments to execute PRINT")
+    }
+  }
+  func testPush(){
+    for i in 0..<CAPACITY{
+      computer.insert(.push(i))
+    }
+    XCTAssertEqual(computer.arguments.count, 0)
+    XCTAssertEqual(computer.programs.count, CAPACITY)
+    if computer.set_address(addr: 0){
+      _ = computer.execute()
+      XCTAssertEqual(computer.arguments.count, CAPACITY)
+    }
+  }
 }

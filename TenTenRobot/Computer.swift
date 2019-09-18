@@ -23,55 +23,66 @@ class Computer{
     programs = Array<Program?>(repeating: nil, count: capacity)
   }
   
-  func set_address(addr:Int) {
-    address = addr
+  func set_address(addr:Int) -> Bool {
+    if addr >= 0 && addr < programs.count{
+      address = addr
+      return true
+    }
+    return false
   }
   
-  func insert(_ program:Program){
-    programs.insert(program, at: address)
-    address+=1    
+  func insert(_ program:Program) {
+    if set_address(addr: address){
+      programs[address] = program
+      address+=1
+    }
   }
   
-  func execute() {
+  func execute() -> [String]{
+    var output:[String] = []
     while address<programs.count {
       if let program = programs[address]{
         switch program{
         case .multi:
           if let arg1 = arguments.popLast(), let arg2 = arguments.popLast(){
             arguments.append(arg1*arg2)
-          }
-          else{
-            print("Insufficient arguments to execute MULTI")
-          }
-          address+=1
-        case .ret:
-          if let addr = arguments.popLast(){
-            address = addr
-          }
-          else{
-            print("Insufficient arguments to execute RET")
-          }
-        case .stop:
-          return
-        case .print:
-          if let arg = arguments.popLast(){
-            print("# \(arg)")
             address+=1
           }
           else{
-            print("Insufficient arguments to execute PRINT")
+            return ["Insufficient arguments to execute MULTI"]
           }
-          address+=1
+        case .ret:
+          if let addr = arguments.popLast(){
+            if !set_address(addr: addr){
+              return ["\(addr) is out of bounds"]
+            }
+          }
+          else{
+            return ["Insufficient arguments to execute RET"]
+          }
+        case .stop:
+          return output
+        case .print:
+          if let arg = arguments.popLast(){
+            output.append("# \(arg)")
+            address+=1
+          }
+          else{
+            return ["Insufficient arguments to execute PRINT"]
+          }
         case .push(let arg):
           arguments.append(arg)
           address+=1
         case .call(let addr):
-          address = addr
+          if !set_address(addr: addr){
+            return ["\(addr) is out of bounds"]
+          }
         }
       }
       else{
         address+=1
       }
     }
+    return output
   }
 }

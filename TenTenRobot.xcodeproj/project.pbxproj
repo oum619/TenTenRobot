@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4D3F91B62331EFC200BF3898 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3F91B52331EFC200BF3898 /* AppDelegate.swift */; };
-		4D3F91B82331EFC200BF3898 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3F91B72331EFC200BF3898 /* ViewController.swift */; };
+		4D3F91B82331EFC200BF3898 /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3F91B72331EFC200BF3898 /* MainController.swift */; };
 		4D3F91BB2331EFC200BF3898 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D3F91B92331EFC200BF3898 /* Main.storyboard */; };
 		4D3F91BD2331EFC400BF3898 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D3F91BC2331EFC400BF3898 /* Assets.xcassets */; };
 		4D3F91C02331EFC400BF3898 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D3F91BE2331EFC400BF3898 /* LaunchScreen.storyboard */; };
@@ -30,7 +30,7 @@
 /* Begin PBXFileReference section */
 		4D3F91B22331EFC200BF3898 /* TenTenRobot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TenTenRobot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D3F91B52331EFC200BF3898 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		4D3F91B72331EFC200BF3898 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		4D3F91B72331EFC200BF3898 /* MainController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainController.swift; sourceTree = "<group>"; };
 		4D3F91BA2331EFC200BF3898 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4D3F91BC2331EFC400BF3898 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4D3F91BF2331EFC400BF3898 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -81,12 +81,12 @@
 			isa = PBXGroup;
 			children = (
 				4D3F91B52331EFC200BF3898 /* AppDelegate.swift */,
-				4D3F91B72331EFC200BF3898 /* ViewController.swift */,
+				4D3F91D52331F86100BF3898 /* Computer.swift */,
+				4D3F91B72331EFC200BF3898 /* MainController.swift */,
 				4D3F91B92331EFC200BF3898 /* Main.storyboard */,
 				4D3F91BC2331EFC400BF3898 /* Assets.xcassets */,
 				4D3F91BE2331EFC400BF3898 /* LaunchScreen.storyboard */,
 				4D3F91C12331EFC400BF3898 /* Info.plist */,
-				4D3F91D52331F86100BF3898 /* Computer.swift */,
 			);
 			path = TenTenRobot;
 			sourceTree = "<group>";
@@ -202,7 +202,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D3F91D62331F86100BF3898 /* Computer.swift in Sources */,
-				4D3F91B82331EFC200BF3898 /* ViewController.swift in Sources */,
+				4D3F91B82331EFC200BF3898 /* MainController.swift in Sources */,
 				4D3F91B62331EFC200BF3898 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
