@@ -26,23 +26,30 @@ class MainController: UIViewController {
 
 
   @IBAction func execute(_ sender: Any) {
-    if computer.set_address(addr: PRINT_TENTEN_BEGIN){
-      computer.insert(.multi)
-      computer.insert(.print)
-      computer.insert(.ret)
+    do{
+      if computer.set_address(addr: PRINT_TENTEN_BEGIN){
+        try computer.insert(.multi)
+        try computer.insert(.print)
+        try computer.insert(.ret)
+      }
+      if computer.set_address(addr: MAIN_BEGIN){
+        try computer.insert(.push(1009))
+        try computer.insert(.print)
+        try computer.insert(.push(6))
+        try computer.insert(.push(101))
+        try computer.insert(.push(10))
+        try computer.insert(.call(PRINT_TENTEN_BEGIN))
+        try computer.insert(.stop)
+      }
+      if computer.set_address(addr: MAIN_BEGIN){
+        let output = computer.execute()
+        outputView.text = output.joined(separator: "\n")
+      }
+    }catch ProgramError.runtimeError(let msg) {
+      outputView.text = msg
     }
-    if computer.set_address(addr: MAIN_BEGIN){
-      computer.insert(.push(1009))
-      computer.insert(.print)
-      computer.insert(.push(6))
-      computer.insert(.push(101))
-      computer.insert(.push(10))
-      computer.insert(.call(PRINT_TENTEN_BEGIN))
-      computer.insert(.stop)
-    }
-    if computer.set_address(addr: MAIN_BEGIN){
-      let output = computer.execute()
-      outputView.text = output.joined(separator: "\n")
+    catch{
+      outputView.text = "Unexpected error occurred"
     }
   }
 }

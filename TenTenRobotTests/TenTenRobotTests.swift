@@ -23,17 +23,17 @@ class TenTenRobotTests: XCTestCase {
   }
   
   func testErrorMulti() {
-    computer.insert(.multi)
+    try? computer.insert(.multi)
     if computer.set_address(addr: 0){
       let output = computer.execute()
       XCTAssertEqual(output.first, "Insufficient arguments to execute MULTI")
     }
   }
   func testMulti() {
-    computer.insert(.push(CAPACITY/5))
-    computer.insert(.push(CAPACITY/5))
-    computer.insert(.multi)
-    computer.insert(.print)
+    try? computer.insert(.push(CAPACITY/5))
+    try? computer.insert(.push(CAPACITY/5))
+    try? computer.insert(.multi)
+    try? computer.insert(.print)
     if computer.set_address(addr: 0){
       let output = computer.execute()
       XCTAssertEqual(output.first, "# \(CAPACITY/5*2)")
@@ -42,14 +42,14 @@ class TenTenRobotTests: XCTestCase {
     }
   }
   func testCallUpperOutOfBound() {
-    computer.insert(.call(computer.programs.count))
+    try? computer.insert(.call(computer.programs.count))
     if computer.set_address(addr: 0){
       let output = computer.execute()
       XCTAssertEqual(output.first, "\(computer.programs.count) is out of bounds")
     }
   }
   func testCallLowerOutOfBound() {
-    computer.insert(.call(-1))
+    try? computer.insert(.call(-1))
     if computer.set_address(addr: 0){
       let output = computer.execute()
       XCTAssertEqual(output.first, "-1 is out of bounds")
@@ -57,11 +57,11 @@ class TenTenRobotTests: XCTestCase {
   }
   func testCall() {
     if computer.set_address(addr: CAPACITY/2){
-      computer.insert(.push(CAPACITY/5))
-      computer.insert(.print)
+      try? computer.insert(.push(CAPACITY/5))
+      try? computer.insert(.print)
     }
     if computer.set_address(addr: 0){
-      computer.insert(.call(CAPACITY/2))
+      try? computer.insert(.call(CAPACITY/2))
     }
     if computer.set_address(addr: 0){
       let output = computer.execute()
@@ -71,7 +71,7 @@ class TenTenRobotTests: XCTestCase {
     }
   }
   func testRetError() {
-    computer.insert(.ret)
+    try? computer.insert(.ret)
     if computer.set_address(addr: 0){
       let output = computer.execute()
       XCTAssertEqual(output.first, "Insufficient arguments to execute RET")
@@ -79,12 +79,12 @@ class TenTenRobotTests: XCTestCase {
   }
   func testRet() {
     if computer.set_address(addr: CAPACITY/2){
-      computer.insert(.push(CAPACITY/5))
-      computer.insert(.print)
+      try? computer.insert(.push(CAPACITY/5))
+      try? computer.insert(.print)
     }
     if computer.set_address(addr: 0){
-      computer.insert(.push(CAPACITY/2))
-      computer.insert(.ret)
+      try? computer.insert(.push(CAPACITY/2))
+      try? computer.insert(.ret)
     }
     if computer.set_address(addr: 0){
       let output = computer.execute()
@@ -94,7 +94,7 @@ class TenTenRobotTests: XCTestCase {
     }
   }
   func testStop(){
-    computer.insert(.stop)
+    try? computer.insert(.stop)
     if computer.set_address(addr: 0){
       let output = computer.execute()
       XCTAssertEqual(output.first, nil)
@@ -103,8 +103,8 @@ class TenTenRobotTests: XCTestCase {
     }
   }
   func testPrint(){
-    computer.insert(.push(CAPACITY))
-    computer.insert(.print)
+    try? computer.insert(.push(CAPACITY))
+    try? computer.insert(.print)
     if computer.set_address(addr: 0){
       let output = computer.execute()
       XCTAssertEqual(output.first, "# \(CAPACITY)")
@@ -113,7 +113,7 @@ class TenTenRobotTests: XCTestCase {
     }
   }
   func testPrintError(){
-    computer.insert(.print)
+    try? computer.insert(.print)
     if computer.set_address(addr: 0){
       let output = computer.execute()
       XCTAssertEqual(output.first,"Insufficient arguments to execute PRINT")
@@ -121,7 +121,7 @@ class TenTenRobotTests: XCTestCase {
   }
   func testPush(){
     for i in 0..<CAPACITY{
-      computer.insert(.push(i))
+      try? computer.insert(.push(i))
     }
     XCTAssertEqual(computer.arguments.count, 0)
     XCTAssertEqual(computer.programs.count, CAPACITY)

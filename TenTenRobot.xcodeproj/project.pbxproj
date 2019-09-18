@@ -39,6 +39,7 @@
 		4D3F91CA2331EFC400BF3898 /* TenTenRobotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TenTenRobotTests.swift; sourceTree = "<group>"; };
 		4D3F91CC2331EFC400BF3898 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4D3F91D52331F86100BF3898 /* Computer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Computer.swift; sourceTree = "<group>"; };
+		4D45A77E2332152C00AB031C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +63,7 @@
 		4D3F91A92331EFC200BF3898 = {
 			isa = PBXGroup;
 			children = (
+				4D45A77E2332152C00AB031C /* README.md */,
 				4D3F91B42331EFC200BF3898 /* TenTenRobot */,
 				4D3F91C92331EFC400BF3898 /* TenTenRobotTests */,
 				4D3F91B32331EFC200BF3898 /* Products */,

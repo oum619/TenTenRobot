@@ -8,6 +8,10 @@
 
 import Foundation
 
+enum ProgramError: Error {
+  case runtimeError(String)
+}
+
 enum Program {
   case multi, ret, stop, print
   case push(Int)
@@ -19,10 +23,12 @@ class Computer{
   var programs : [Program?]
   var arguments : [Int] = []
   
+  // Initiate a Computer with capacity of programs
   init(capacity:Int) {
     programs = Array<Program?>(repeating: nil, count: capacity)
   }
   
+  // Set the programs address to a specific location, has to be within the computer programs bounds.
   func set_address(addr:Int) -> Bool {
     if addr >= 0 && addr < programs.count{
       address = addr
@@ -31,13 +37,21 @@ class Computer{
     return false
   }
   
-  func insert(_ program:Program) {
+  // Insert a program to to the computer at the current address location.
+  func insert(_ program:Program) throws {
     if set_address(addr: address){
+      if let p = programs[address]{
+        throw ProgramError.runtimeError("Cannot inset at \(address) will override program \(p)")
+      }
       programs[address] = program
       address+=1
     }
+    else{
+      throw ProgramError.runtimeError("\(address) is out of bounds")
+    }
   }
   
+  // Execute the Computer programs starting from current address location.
   func execute() -> [String]{
     var output:[String] = []
     while address<programs.count {
